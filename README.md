@@ -9,6 +9,8 @@ A scatter plot view for [Obsidian Bases](https://help.obsidian.md/bases). Turn y
 
 ---
 
+![](./screenshot.png)
+
 ## The Problem
 
 You've got notes. Those notes have numbers. Maybe it's `effort` and `value`. Maybe it's `pages` and `interest`. Maybe it's `complexity` and `how-much-I-want-to-cry`.
