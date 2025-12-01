@@ -1,94 +1,190 @@
-# Obsidian Sample Plugin
+# Obsidian Scatter
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+> Because staring at tables until your eyes glaze over is *not* a productivity strategy.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+A scatter plot view for [Obsidian Bases](https://help.obsidian.md/bases). Turn your notes into dots. Watch patterns emerge. Pretend you're a data scientist.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+![Obsidian](https://img.shields.io/badge/Obsidian-1.10.0+-purple)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## First time developing plugins?
+---
 
-Quick starting guide for new plugin devs:
+## The Problem
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+You've got notes. Those notes have numbers. Maybe it's `effort` and `value`. Maybe it's `pages` and `interest`. Maybe it's `complexity` and `how-much-I-want-to-cry`.
 
-## Releasing new releases
+Bases shows you tables. Tables are fine. Tables are *responsible*. But tables make you *think* to find patterns. And thinking is exhausting.
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+**What if your notes could just... show you where they belong?**
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+---
 
-## Adding your plugin to the community plugin list
+## The Solution
 
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+**Obsidian Scatter** adds a scatter plot view to Bases. Pick two numeric properties, and suddenly your notes are points on a chart. The good stuff floats to the top-left. The dumpster fires sink to the bottom-right. No math required.
 
-## How to use
+It's the Eisenhower Matrix, the BCG Matrix, or whatever 2x2 framework your PM is obsessed with this quarter — except it builds itself from your actual data.
 
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+---
 
-## Manually installing the plugin
+## Features
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+### What It Does
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint ./src/`
+| Feature | What That Means For You |
+|---------|------------------------|
+| **Scatter plot view** | Your notes become clickable dots. Revolutionary. |
+| **Auto-scaling axes** | No manual axis configuration. We do the math so you don't have to. |
+| **Color by category** | Optional rainbow mode. Group by status, type, or vibe. |
+| **Click to open** | Dots are doors. Click one, open the note. |
+| **Hover preview** | Peek at notes without committing. Like window shopping, but for productivity. |
+| **Responsive design** | Works in sidebars, splits, or that tiny corner you've crammed it into. |
+| **Graceful degradation** | Missing values? We skip them and tell you how many. No crashes, no drama. |
 
-## Funding URL
+### Configuration
 
-You can include funding URLs where people who use your plugin can financially support it.
+All settings live in the standard Bases "Configure view" menu:
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
+| Setting | Description |
+|---------|-------------|
+| **X axis** | The property that goes sideways (must be a number) |
+| **Y axis** | The property that goes up and down (also a number) |
+| **Color by** | Optional property to make things colorful |
 
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
+---
+
+## Use Cases (a.k.a. "Why Would I Want This?")
+
+### The Quick Wins Hunt
+
+Plot tasks by `effort` (X) and `value` (Y). Sprint to the top-left quadrant. That's where the glory lives.
+
+```yaml
+---
+effort: 2
+value: 8
+status: todo
+---
 ```
 
-If you have multiple URLs, you can also do:
+Low effort. High value. *Chef's kiss.*
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
+### The Book Stack of Shame
+
+You bought 47 books this year. You've read 3. Plot them by `pages` (X) and `interest` (Y). Find the short, exciting ones. Pretend the 800-page biography doesn't exist.
+
+### Project Risk Bingo
+
+Plot projects by `complexity` (X) and `uncertainty` (Y). The top-right corner is where dreams go to die. Steer clear.
+
+### The Research Paper Triage
+
+`citation_count` vs `relevance_score`. Find papers that are both important *and* actually useful. Unicorns, basically.
+
+### Goal Setting for Realists
+
+`time_to_complete` vs `impact`. See which goals are quick wins and which are "maybe next quarter."
+
+---
+
+## Installation
+
+### From Community Plugins (when we're famous)
+
+1. **Settings → Community plugins**
+2. Search for "Scatter"
+3. Install and enable
+4. Celebrate
+
+### Manual Installation (for the impatient)
+
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/MartinSeeler/obsidian-scatter/releases)
+2. Create `.obsidian/plugins/obsidian-scatter/`
+3. Drop the files in
+4. Reload Obsidian
+5. Enable in **Settings → Community plugins**
+
+### From Source (for the brave)
+
+```bash
+git clone https://github.com/MartinSeeler/obsidian-scatter.git
+cd obsidian-scatter
+npm install
+npm run build
+# Copy main.js, manifest.json, styles.css to your vault's plugins folder
 ```
 
-## API Documentation
+---
 
-See https://github.com/obsidianmd/obsidian-api
+## Usage
+
+1. Create a Base (or open one you've been neglecting)
+2. Filter to notes with numeric properties
+3. Click the view selector → **Change layout → Scatter Plot**
+4. Open "Configure view" and pick your axes
+5. Optionally pick a "Color by" property
+6. Marvel at your data visualization skills
+
+**Pro tip:** Use Bases formulas to create computed properties:
+
+```
+formula.priority: value * (10 - effort)
+```
+
+Now you can plot against `priority`. Big brain energy.
+
+---
+
+## Why Not Just Use Excel?
+
+Oh, you *could* export your notes to Excel. You could wrestle with pivot tables. You could lose an afternoon to conditional formatting. You could email yourself a spreadsheet and never open it again.
+
+Or you could stay in Obsidian, click three buttons, and see your data as a scatter plot.
+
+Your call.
+
+---
+
+## Roadmap
+
+### Coming Soon™
+
+- **Size by property** — Bubbles! The third dimension! (v0.2)
+- **Quadrant lines** — Draw threshold lines to create actual zones (v0.2)
+- **Legend** — Know what the colors mean (v0.2)
+- **Log scale** — For data that spans orders of magnitude (v0.2)
+
+### Coming Eventually™
+
+- **Drag to edit** — Move points to update property values
+- **Lasso select** — Grab multiple points for bulk operations
+- **Zoom controls** — Buttons for people who don't trust scroll wheels
+
+### Coming Someday™
+
+- **Trend lines** — Linear regression for the statistically inclined
+- **Animations** — Smooth transitions that make you feel fancy
+- **Time dimension** — Watch your data evolve over time
+- **Quadrant labels** — "Quick Wins", "Big Bets", "Money Pits", "Avoid"
+
+---
+
+## Contributing
+
+Found a bug? Got a feature idea? PRs welcome — just open an issue first so we can chat.
+
+---
+
+## License
+
+MIT © [Martin Seeler](https://github.com/MartinSeeler)
+
+Do whatever you want with it. Just don't blame me if your scatter plot reveals uncomfortable truths about your productivity.
+
+---
+
+## Acknowledgments
+
+- The [obsidian-maps](https://github.com/obsidianmd/obsidian-maps) plugin for showing how Bases views work
+- The Obsidian team for making Bases happen
+- Coffee, for making everything else happen

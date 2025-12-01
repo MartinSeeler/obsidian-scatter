@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+	"id": "obsidian-scatter",
+	"name": "Obsidian Scatter Chart",
+	"version": "0.0.1",
+	"minAppVersion": "1.10.0",
+	"description": "Scatter plot view for Obsidian Bases. Visualize notes as points on a 2D chart using any numeric properties. Find patterns, spot outliers, prioritize visually.",
+	"author": "Martin Seeler",
+	"authorUrl": "https://github.com/MartinSeeler",
+	"fundingUrl": "https://buymeacoffee.com/seeler",
+	"isDesktopOnly": true
 }
