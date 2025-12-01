@@ -99,7 +99,7 @@ Plot projects by `complexity` (X) and `uncertainty` (Y). The top-right corner is
 ### Manual Installation (for the impatient)
 
 1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/MartinSeeler/obsidian-scatter/releases)
-2. Create `.obsidian/plugins/obsidian-scatter/`
+2. Create `.obsidian/plugins/scatter-chart/`
 3. Drop the files in
 4. Reload Obsidian
 5. Enable in **Settings → Community plugins**

@@ -8,7 +8,7 @@ This document provides project-specific context for AI coding agents, followed b
 
 **Obsidian Scatter** is a scatter plot view plugin for Obsidian Bases. It plots notes as points on a 2D chart using numeric properties, enabling visual pattern discovery and prioritization.
 
-- **Plugin ID:** `obsidian-scatter`
+- **Plugin ID:** `scatter-chart`
 - **Entry point:** `src/main.ts` → compiled to `main.js`
 - **View type:** Extends `BasesView` to add a scatter plot layout option
 - **Required Obsidian version:** 1.10.0+ (Bases View API)
