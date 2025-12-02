@@ -37,13 +37,14 @@ const mockFile = (path: string): TFile =>
 const mockPoint = (
   x: number,
   y: number,
-  category: string | null = null
+  category: string | null = null,
+  label: string = "test"
 ): ScatterPoint =>
   ({
     x,
     y,
     category,
-    label: "test",
+    label,
     file: mockFile("test.md"),
     entry: {} as any,
   }) as ScatterPoint;
@@ -225,8 +226,7 @@ describe("transformPointsToScreen", () => {
   });
 
   it("preserves original point data", () => {
-    const points = [mockPoint(25, 75, "A")];
-    points[0].label = "Test Label";
+    const points = [mockPoint(25, 75, "A", "Test Label")];
 
     const rendered = transformPointsToScreen(points, bounds, inner, colorMap);
 
