@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import type { TFile } from "obsidian";
+import type { BasesEntry, TFile } from "obsidian";
 import type { ScatterPoint, SkippedEntry } from "./types";
 import {
 	calculateAxisBounds,
@@ -25,7 +25,8 @@ const mockFile = (path: string): TFile =>
 	({
 		path,
 		basename: path.split("/").pop()?.replace(".md", "") ?? path,
-	} as TFile);
+		// eslint-disable-next-line obsidianmd/no-tfile-tfolder-cast -- Test mock: creating minimal TFile for unit tests
+	}) as TFile;
 
 /** Creates a minimal ScatterPoint for testing */
 const mockPoint = (
@@ -39,8 +40,8 @@ const mockPoint = (
 		category,
 		label: "test",
 		file: mockFile("test.md"),
-		entry: {} as any,
-	} as ScatterPoint);
+		entry: {} as unknown as ScatterPoint["entry"],
+	}) as ScatterPoint;
 
 // ============================================================================
 // calculateAxisBounds
@@ -315,8 +316,8 @@ describe("flattenGroupedData", () => {
 	});
 
 	it("flattens single group", () => {
-		const entry1 = { file: mockFile("a.md") } as any;
-		const entry2 = { file: mockFile("b.md") } as any;
+		const entry1 = { file: mockFile("a.md") } as unknown as BasesEntry;
+		const entry2 = { file: mockFile("b.md") } as unknown as BasesEntry;
 		const grouped = [{ entries: [entry1, entry2] }];
 
 		const result = flattenGroupedData(grouped);
@@ -326,9 +327,9 @@ describe("flattenGroupedData", () => {
 	});
 
 	it("flattens multiple groups", () => {
-		const entry1 = { file: mockFile("a.md") } as any;
-		const entry2 = { file: mockFile("b.md") } as any;
-		const entry3 = { file: mockFile("c.md") } as any;
+		const entry1 = { file: mockFile("a.md") } as unknown as BasesEntry;
+		const entry2 = { file: mockFile("b.md") } as unknown as BasesEntry;
+		const entry3 = { file: mockFile("c.md") } as unknown as BasesEntry;
 		const grouped = [{ entries: [entry1] }, { entries: [entry2, entry3] }];
 
 		const result = flattenGroupedData(grouped);
@@ -337,7 +338,7 @@ describe("flattenGroupedData", () => {
 	});
 
 	it("handles groups with empty entries", () => {
-		const entry1 = { file: mockFile("a.md") } as any;
+		const entry1 = { file: mockFile("a.md") } as unknown as BasesEntry;
 		const grouped = [
 			{ entries: [] },
 			{ entries: [entry1] },

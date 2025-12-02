@@ -18,7 +18,6 @@ import type {
   RenderedPoint,
 } from "./types";
 import {
-  DEFAULT_CONFIG,
   DEFAULT_VIEWPORT,
   DEFAULT_PALETTE,
 } from "./types";

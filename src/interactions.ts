@@ -4,7 +4,7 @@
  * Handles click-to-open and hover tooltips.
  */
 
-import type { App, HoverParent, HoverPopover } from "obsidian";
+import type { App, HoverParent } from "obsidian";
 import { Keymap } from "obsidian";
 import type { RenderedPoint, ScatterPoint } from "./types";
 import { DEFAULT_POINT_CONFIG, type PointRenderConfig } from "./render";
@@ -143,21 +143,9 @@ export interface TooltipData {
 export const createTooltip = (data: TooltipData): HTMLDivElement => {
 	const tooltip = document.createElement("div");
 	tooltip.className = "scatter-tooltip";
-	tooltip.style.cssText = `
-    position: absolute;
-    background: var(--background-primary);
-    border: 1px solid var(--background-modifier-border);
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 12px;
-    box-shadow: var(--shadow-s);
-    z-index: 1000;
-    pointer-events: none;
-    max-width: 250px;
-  `;
 
 	const title = document.createElement("div");
-	title.style.cssText = "font-weight: 600; margin-bottom: 4px;";
+	title.className = "scatter-tooltip-title";
 	title.textContent = data.label;
 	tooltip.appendChild(title);
 
@@ -165,12 +153,22 @@ export const createTooltip = (data: TooltipData): HTMLDivElement => {
 		v.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
 	const values = document.createElement("div");
-	values.style.cssText = "color: var(--text-muted); font-size: 11px;";
-	values.innerHTML = `
-    <div>${data.xLabel}: ${formatValue(data.x)}</div>
-    <div>${data.yLabel}: ${formatValue(data.y)}</div>
-    ${data.category ? `<div>Category: ${data.category}</div>` : ""}
-  `;
+	values.className = "scatter-tooltip-values";
+
+	const xLine = document.createElement("div");
+	xLine.textContent = `${data.xLabel}: ${formatValue(data.x)}`;
+	values.appendChild(xLine);
+
+	const yLine = document.createElement("div");
+	yLine.textContent = `${data.yLabel}: ${formatValue(data.y)}`;
+	values.appendChild(yLine);
+
+	if (data.category) {
+		const categoryLine = document.createElement("div");
+		categoryLine.textContent = `Category: ${data.category}`;
+		values.appendChild(categoryLine);
+	}
+
 	tooltip.appendChild(values);
 
 	return tooltip;

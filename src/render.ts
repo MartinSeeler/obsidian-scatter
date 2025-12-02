@@ -291,9 +291,7 @@ export const createPointElement = (
     "data-file-path": point.file.path,
   });
 
-  // Add CSS for hover effect
-  circle.style.cursor = "pointer";
-  circle.style.transition = "r 0.15s ease-out, opacity 0.15s ease-out";
+  // Hover effects are handled by the .scatter-point CSS class
 
   return circle;
 };
@@ -441,23 +439,14 @@ export const createChartSvg = (
 export const createEmptyState = (message: string): HTMLDivElement => {
   const container = document.createElement("div");
   container.className = "scatter-empty-state";
-  container.style.cssText = `
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: var(--text-muted);
-    text-align: center;
-    padding: 20px;
-  `;
 
   const icon = document.createElement("div");
-  icon.style.cssText = "font-size: 48px; margin-bottom: 16px;";
+  icon.className = "scatter-empty-state-icon";
   icon.textContent = "📊";
   container.appendChild(icon);
 
   const text = document.createElement("div");
+  text.className = "scatter-empty-state-text";
   text.textContent = message;
   container.appendChild(text);
 

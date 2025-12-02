@@ -18,6 +18,23 @@ import type {
 } from "./types";
 
 // ============================================================================
+// Value Helpers
+// ============================================================================
+
+/**
+ * Checks if a value from the Bases API is empty.
+ * Handles the Value wrapper which may have an isEmpty() method.
+ */
+const isValueEmpty = (value: unknown): boolean => {
+  if (value === null || value === undefined) return true;
+  if (typeof value === "object" && value !== null && "isEmpty" in value) {
+    const v = value as { isEmpty: () => boolean };
+    return v.isEmpty();
+  }
+  return !value;
+};
+
+// ============================================================================
 // Value Extraction
 // ============================================================================
 
@@ -33,15 +50,8 @@ export const extractNumericValue = (
     // Cast to expected template literal type - the API accepts these prefixes
     const value = entry.getValue(propertyId as `note.${string}`);
 
-    if (value === null || value === undefined) {
-      return { success: false, reason: `Property "${propertyId}" is empty` };
-    }
-
-    // Check if value has isEmpty method, otherwise check truthiness
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const valueAny = value as any;
-    const isEmpty = typeof valueAny.isEmpty === "function" ? valueAny.isEmpty() : !value;
-    if (isEmpty) {
+    // Check if value is empty using the Value wrapper's isEmpty method if available
+    if (value === null || value === undefined || isValueEmpty(value)) {
       return { success: false, reason: `Property "${propertyId}" is empty` };
     }
 
@@ -87,15 +97,8 @@ export const extractCategoryValue = (
     // Cast to expected template literal type
     const value = entry.getValue(propertyId as `note.${string}`);
 
-    if (value === null || value === undefined) {
-      return { success: false };
-    }
-
-    // Check if value has isEmpty method, otherwise check truthiness
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const valueAny = value as any;
-    const isEmpty = typeof valueAny.isEmpty === "function" ? valueAny.isEmpty() : !value;
-    if (isEmpty) {
+    // Check if value is empty using the Value wrapper's isEmpty method if available
+    if (value === null || value === undefined || isValueEmpty(value)) {
       return { success: false };
     }
 

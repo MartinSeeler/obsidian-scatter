@@ -9,8 +9,8 @@ import { Plugin } from "obsidian";
 import { ScatterPlotView, SCATTER_VIEW_TYPE } from "./scatter-view";
 
 export default class ScatterPlotPlugin extends Plugin {
-  async onload(): Promise<void> {
-    console.log("Loading Scatter Plot plugin");
+  onload(): void {
+    console.debug("Loading Scatter Plot plugin");
 
     this.registerBasesView(SCATTER_VIEW_TYPE, {
       name: "Scatter Plot",
@@ -64,6 +64,6 @@ export default class ScatterPlotPlugin extends Plugin {
   }
 
   onunload(): void {
-    console.log("Unloading Scatter Plot plugin");
+    console.debug("Unloading Scatter Plot plugin");
   }
 }

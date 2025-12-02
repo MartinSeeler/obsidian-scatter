@@ -31,6 +31,7 @@ const mockFile = (path: string): TFile =>
   ({
     path,
     basename: path.split("/").pop()?.replace(".md", "") ?? path,
+    // eslint-disable-next-line obsidianmd/no-tfile-tfolder-cast -- Test mock: creating minimal TFile for unit tests
   }) as TFile;
 
 /** Creates a minimal ScatterPoint for testing */
@@ -46,7 +47,7 @@ const mockPoint = (
     category,
     label,
     file: mockFile("test.md"),
-    entry: {} as any,
+    entry: {} as unknown as ScatterPoint["entry"],
   }) as ScatterPoint;
 
 /** Creates a standard viewport for testing */
