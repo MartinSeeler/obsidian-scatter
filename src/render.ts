@@ -13,7 +13,6 @@ import type {
   InnerDimensions,
   ColorPalette,
   AxisBounds,
-  ZoomState,
 } from "./types";
 import { DEFAULT_PALETTE } from "./types";
 import { createLinearScale } from "./data";

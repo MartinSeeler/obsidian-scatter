@@ -1,7 +1,7 @@
 /**
  * Interaction handlers for the scatter plot.
  *
- * Handles click-to-open, hover tooltips, and zoom/pan.
+ * Handles click-to-open and hover tooltips.
  */
 
 import type { App, HoverParent, HoverPopover } from "obsidian";
@@ -321,76 +321,5 @@ export const attachPointEvents = (
 			activeTooltip.remove();
 			activeTooltip = null;
 		}
-	};
-};
-
-// ============================================================================
-// Zoom/Pan (Basic Implementation)
-// ============================================================================
-
-export interface ZoomPanConfig {
-	readonly minScale: number;
-	readonly maxScale: number;
-	readonly onZoomChange: (
-		scale: number,
-		translateX: number,
-		translateY: number
-	) => void;
-}
-
-const DEFAULT_ZOOM_CONFIG: ZoomPanConfig = {
-	minScale: 0.5,
-	maxScale: 5,
-	onZoomChange: () => {},
-};
-
-/**
- * Attaches wheel zoom to the SVG.
- * Returns a cleanup function.
- */
-export const attachWheelZoom = (
-	svg: SVGSVGElement,
-	config: ZoomPanConfig = DEFAULT_ZOOM_CONFIG
-): (() => void) => {
-	let scale = 1;
-	let translateX = 0;
-	let translateY = 0;
-
-	const mainGroup = svg.querySelector("g") as SVGGElement | null;
-	if (mainGroup === null) return () => {};
-
-	// Store original transform
-	const originalTransform = mainGroup.getAttribute("transform") || "";
-
-	const applyTransform = (): void => {
-		mainGroup.setAttribute(
-			"transform",
-			`${originalTransform} scale(${scale}) translate(${translateX}, ${translateY})`
-		);
-	};
-
-	const handleWheel = (event: WheelEvent): void => {
-		// Only zoom if Ctrl/Cmd is pressed
-		if (!event.ctrlKey && !event.metaKey) return;
-
-		event.preventDefault();
-
-		const delta = event.deltaY > 0 ? 0.9 : 1.1;
-		const newScale = Math.max(
-			config.minScale,
-			Math.min(config.maxScale, scale * delta)
-		);
-
-		if (newScale !== scale) {
-			scale = newScale;
-			applyTransform();
-			config.onZoomChange(scale, translateX, translateY);
-		}
-	};
-
-	svg.addEventListener("wheel", handleWheel, { passive: false });
-
-	return (): void => {
-		svg.removeEventListener("wheel", handleWheel);
 	};
 };

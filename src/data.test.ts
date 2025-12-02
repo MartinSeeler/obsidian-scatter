@@ -349,3 +349,4 @@ describe("flattenGroupedData", () => {
 		expect(result[0]).toBe(entry1);
 	});
 });
+

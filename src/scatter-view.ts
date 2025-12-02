@@ -38,7 +38,6 @@ import {
 } from "./render";
 import {
   attachPointEvents,
-  attachWheelZoom,
   createPointIndex,
 } from "./interactions";
 
@@ -223,7 +222,7 @@ export class ScatterPlotView extends BasesView implements HoverParent {
 
     // Attach event handlers
     const pointIndex = createPointIndex(this.renderedPoints);
-    const cleanupEvents = attachPointEvents(svg, {
+    this.cleanup = attachPointEvents(svg, {
       app: this.app,
       hoverParent: this,
       containerEl: this.containerEl,
@@ -232,17 +231,6 @@ export class ScatterPlotView extends BasesView implements HoverParent {
       yLabel,
       pointConfig: DEFAULT_POINT_CONFIG,
     });
-
-    const cleanupZoom = attachWheelZoom(svg, {
-      minScale: 0.5,
-      maxScale: 5,
-      onZoomChange: () => {}, // Could be used for state tracking
-    });
-
-    this.cleanup = (): void => {
-      cleanupEvents();
-      cleanupZoom();
-    };
 
     // Show warning about skipped entries
     if (skipped.length > 0) {

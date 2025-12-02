@@ -155,21 +155,7 @@ export interface ViewState {
   readonly data: DataExtractionResult | null;
   readonly bounds: PlotBounds | null;
   readonly viewport: ViewportDimensions;
-  readonly zoom: ZoomState;
 }
-
-/** Zoom/pan state */
-export interface ZoomState {
-  readonly scale: number;
-  readonly translateX: number;
-  readonly translateY: number;
-}
-
-export const DEFAULT_ZOOM: ZoomState = {
-  scale: 1,
-  translateX: 0,
-  translateY: 0,
-} as const;
 
 export const DEFAULT_VIEWPORT: ViewportDimensions = {
   width: 800,
