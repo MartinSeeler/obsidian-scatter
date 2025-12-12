@@ -29,6 +29,7 @@ export default defineConfig([
       "@eslint-community/eslint-comments/no-restricted-disable": [
         "error",
         "@typescript-eslint/no-explicit-any",
+        "obsidianmd/no-tfile-tfolder-cast",
       ],
       // TypeScript rules (match PR checker)
       "@typescript-eslint/no-unnecessary-type-assertion": "error",

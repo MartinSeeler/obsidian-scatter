@@ -26,13 +26,14 @@ import {
 // Test Helpers
 // ============================================================================
 
-/** Creates a mock TFile for testing */
-const mockFile = (path: string): TFile =>
-  ({
-    path,
-    basename: path.split("/").pop()?.replace(".md", "") ?? path,
-    // eslint-disable-next-line obsidianmd/no-tfile-tfolder-cast -- Test mock: creating minimal TFile for unit tests
-  }) as TFile;
+/** Mock file type with minimal properties needed for tests */
+type MockFile = Pick<TFile, 'path' | 'basename'>;
+
+/** Creates a mock file object for testing (minimal shape needed by tests) */
+const mockFile = (path: string): MockFile => ({
+  path,
+  basename: path.split("/").pop()?.replace(".md", "") ?? path,
+});
 
 /** Creates a minimal ScatterPoint for testing */
 const mockPoint = (
