@@ -1,7 +1,7 @@
 {
 	"id": "scatter-chart-bases",
 	"name": "Scatter Plot for Bases",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"minAppVersion": "1.10.0",
 	"description": "Visualize notes as points on a 2D chart using any numeric properties. Find patterns, spot outliers, prioritize visually.",
 	"author": "Martin Seeler",
